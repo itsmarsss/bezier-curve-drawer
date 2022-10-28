@@ -11,20 +11,28 @@ Begin VB.Form frmBezierDrawer
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   909
    StartUpPosition =   3  'Windows Default
+   Begin VB.CommandButton cmdClear 
+      Caption         =   "Clear"
+      Height          =   315
+      Left            =   11040
+      TabIndex        =   7
+      Top             =   120
+      Width           =   2175
+   End
    Begin VB.CommandButton cmdDrawSel 
       Caption         =   "Draw Sel"
       Enabled         =   0   'False
       Height          =   315
       Left            =   11040
-      TabIndex        =   6
+      TabIndex        =   5
       Top             =   4080
       Width           =   2175
    End
    Begin VB.CommandButton cmdDraw 
       Caption         =   "Draw"
-      Height          =   255
+      Height          =   315
       Left            =   11040
-      TabIndex        =   5
+      TabIndex        =   4
       Top             =   3600
       Width           =   2175
    End
@@ -32,43 +40,46 @@ Begin VB.Form frmBezierDrawer
       Caption         =   "Guides"
       Height          =   255
       Left            =   11040
-      TabIndex        =   4
+      TabIndex        =   3
       Top             =   3120
       Width           =   2175
    End
    Begin VB.CommandButton cmdRmv 
       Caption         =   "Remove"
       Enabled         =   0   'False
-      Height          =   255
+      Height          =   315
       Left            =   11040
-      TabIndex        =   3
+      TabIndex        =   2
       Top             =   2640
       Width           =   2175
    End
    Begin VB.ListBox lstCurves 
       Height          =   1815
       Left            =   11040
-      TabIndex        =   2
+      TabIndex        =   1
       Top             =   600
       Width           =   2175
    End
-   Begin VB.CommandButton cmdClear 
-      Caption         =   "Clear"
-      Height          =   255
-      Left            =   11040
-      TabIndex        =   1
-      Top             =   120
-      Width           =   2175
-   End
    Begin VB.PictureBox picBezier 
+      Appearance      =   0  'Flat
+      BackColor       =   &H80000005&
+      ForeColor       =   &H80000008&
       Height          =   4575
       Left            =   0
-      ScaleHeight     =   301
+      ScaleHeight     =   303
       ScaleMode       =   3  'Pixel
-      ScaleWidth      =   725
+      ScaleWidth      =   727
       TabIndex        =   0
       Top             =   0
       Width           =   10935
+   End
+   Begin VB.Label lblCoords 
+      Caption         =   "(0, 0)"
+      Height          =   255
+      Left            =   11040
+      TabIndex        =   6
+      Top             =   4560
+      Width           =   2175
    End
 End
 Attribute VB_Name = "frmBezierDrawer"
@@ -76,8 +87,11 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+Option Explicit
+
 Public cs As Integer
 Public bez As New Collection
+Public self As Boolean
 Public sel As Integer
 Public temp As String
 Public c1 As Integer
@@ -141,16 +155,31 @@ Private Sub picBezier_MouseDown(Button As Integer, Shift As Integer, X As Single
 End Sub
 
 Private Sub chkGds_Click()
-    cmdDraw = 1
+    cmdDraw.Value = 1
 End Sub
 
 Private Sub cmdClear_Click()
-    'If MsgBox("Clear Canvas?", vbYesNo, "Bezier Curves") = vbYes Then
+    If self = True Then
         picBezier.Cls
-    'End If
+        self = False
+    Else
+        Dim res As String
+        res = MsgBox("Clear list aswell?", vbYesNoCancel + vbQuestion, "Clear Bezier Curves")
+    
+        If res = 6 Then
+            picBezier.Cls
+            lstCurves.Clear
+            cmdRmv.Enabled = False
+            cmdDrawSel.Enabled = False
+        End If
+        If res = 7 Then
+            picBezier.Cls
+        End If
+    End If
 End Sub
 
 Private Sub cmdDraw_Click()
+    self = True
     cmdClear.Value = 1
     
     Dim i As Integer
@@ -278,7 +307,7 @@ Private Sub Form_Resize()
     picBezier.Left = 0
     
     picBezier.Width = w - 200
-    picBezier.Height = h
+    picBezier.Height = h - 40
     
     cmdClear.Left = picBezier.Width + 10
     lstCurves.Left = picBezier.Width + 10
@@ -286,6 +315,7 @@ Private Sub Form_Resize()
     chkGds.Left = picBezier.Width + 10
     cmdDraw.Left = picBezier.Width + 10
     cmdDrawSel.Left = picBezier.Width + 10
+    lblCoords.Left = picBezier.Width + 10
 End Sub
 
 Private Sub lstCurves_Click()
@@ -293,3 +323,8 @@ Private Sub lstCurves_Click()
     cmdRmv.Enabled = True
     cmdDrawSel.Enabled = True
 End Sub
+
+Private Sub picBezier_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    lblCoords.Caption = "(" & X & ", " & Y & ")"
+End Sub
+
