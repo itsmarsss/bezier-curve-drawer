@@ -189,6 +189,7 @@ End Sub
 Private Sub cmdClear_Click()
     If self = True Then
         picBezier.Cls
+        picBezier.Refresh
         self = False
     Else
         Dim res As String
@@ -196,17 +197,17 @@ Private Sub cmdClear_Click()
     
         If res = 6 Then
             picBezier.Cls
+            picBezier.Refresh
             lstCurves.Clear
 
-            Dim i As Integer
-            For i = bez.Count - 1 To 1 Step 1
-                bez.Remove (1)
-            Next i
+            Set bez = Nothing
+            
             cmdRmv.Enabled = False
             cmdDrawSel.Enabled = False
         End If
         If res = 7 Then
             picBezier.Cls
+            picBezier.Refresh
         End If
     End If
 End Sub
