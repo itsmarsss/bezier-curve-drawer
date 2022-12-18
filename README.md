@@ -30,9 +30,10 @@ After running the program there should be a white canvas and a column of element
 **List** - Stores all curves  
 **Remove** - Removes selected item in List  
 **Guides** - Toggle points and lines on curves  
+**Save Image** - Save drawing as a JPG image  
 **Draw** - Draws all saved curves  
 **Draw Selected** - Draws selected item in List  
 **Label** - Coordinated of mouse in pixels
 
 ## About
-This program was created to better visualize Bézier curves for a Math research.
+This program was created to better visualize Bézier curves for a Math research project.
