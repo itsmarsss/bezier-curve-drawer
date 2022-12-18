@@ -111,12 +111,12 @@ Public c3 As Integer
 Public v3 As Integer
 
 Private Sub cmdSave_Click()
-    SavePicture picBezier.Image, "image.bmp"
+    SavePicture picBezier.Image, "image.jpg"
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
     Dim res As String
-    res = MsgBox("Save Drawing As BMP?", vbYesNoCancel + vbQuestion, "Exit Quadratic Bezier Drawer")
+    res = MsgBox("Save Drawing As JPG?", vbYesNoCancel + vbQuestion, "Exit Quadratic Bezier Drawer")
 
     If res = vbYes Then
         cmdSave.Value = 1
