@@ -11,6 +11,14 @@ Begin VB.Form frmBezierDrawer
    ScaleMode       =   3  'Pixel
    ScaleWidth      =   909
    StartUpPosition =   3  'Windows Default
+   Begin VB.CommandButton cmdSave 
+      Caption         =   "Save Image"
+      Height          =   315
+      Left            =   12120
+      TabIndex        =   8
+      Top             =   3075
+      Width           =   1095
+   End
    Begin VB.CommandButton cmdClear 
       Caption         =   "Clear"
       Height          =   315
@@ -42,7 +50,7 @@ Begin VB.Form frmBezierDrawer
       Left            =   11040
       TabIndex        =   3
       Top             =   3120
-      Width           =   2175
+      Width           =   855
    End
    Begin VB.CommandButton cmdRmv 
       Caption         =   "Remove"
@@ -62,6 +70,7 @@ Begin VB.Form frmBezierDrawer
    End
    Begin VB.PictureBox picBezier 
       Appearance      =   0  'Flat
+      AutoRedraw      =   -1  'True
       BackColor       =   &H80000005&
       ForeColor       =   &H80000008&
       Height          =   4575
@@ -100,6 +109,10 @@ Public c2 As Integer
 Public v2 As Integer
 Public c3 As Integer
 Public v3 As Integer
+
+Private Sub cmdSave_Click()
+    SavePicture picBezier.Image, "image.bmp"
+End Sub
 
 Private Sub picBezier_Click()
     If cs = 3 Then
@@ -318,6 +331,7 @@ Private Sub Form_Resize()
     lstCurves.Left = picBezier.Width + 10
     cmdRmv.Left = picBezier.Width + 10
     chkGds.Left = picBezier.Width + 10
+    cmdSave.Left = picBezier.Width + 10 + 57
     cmdDraw.Left = picBezier.Width + 10
     cmdDrawSel.Left = picBezier.Width + 10
     lblCoords.Left = picBezier.Width + 10
