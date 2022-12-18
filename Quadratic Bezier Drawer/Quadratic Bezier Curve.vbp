@@ -1,8 +1,10 @@
 Type=Exe
 Form=frmBezierDrawer.frm
-Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#..\..\..\..\Windows\SysWOW64\stdole2.tlb#OLE Automation
+Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#..\..\..\..\..\Windows\SysWOW64\stdole2.tlb#OLE Automation
 IconForm="frmBezierDrawer"
 Startup="frmBezierDrawer"
+ExeName32="Quadratic Bezier Curve.exe"
+Path32=".."
 Command32=""
 Name="BezierDrawer"
 HelpContextID="0"

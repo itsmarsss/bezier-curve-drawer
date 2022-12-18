@@ -169,9 +169,10 @@ Private Sub cmdClear_Click()
         If res = 6 Then
             picBezier.Cls
             lstCurves.Clear
+
             Dim i As Integer
-            For i = 1 To bez.Count - 1 Step 1
-                bez.Remove (i)
+            For i = bez.Count - 1 To 1 Step 1
+                bez.Remove (1)
             Next i
             cmdRmv.Enabled = False
             cmdDrawSel.Enabled = False
